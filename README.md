@@ -55,7 +55,7 @@ A simple Django project with a REST API for managing coffee entries. This projec
     ```
 
 ## Project Structure
-coffee_project/
+``` coffee_project/
 │
 ├── project/
 │ ├── init.py
@@ -89,7 +89,7 @@ coffee_project/
 │
 ├── manage.py
 ├── README.md
-
+```
 
 ## Usage
 
