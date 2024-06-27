@@ -7,13 +7,16 @@ $(document).ready(function(){
                 $('#coffee-list').empty();
                 data.forEach(function(coffee, index) {
                     let coffeeItem = `<li style="transition-delay: ${index * 0.1}s;">
-                        <h3><a href="/menu/${coffee.id}/">${coffee.name}</a></h3>
-                        <p>Description: ${coffee.description}</p>
-                        <p>Price: ${coffee.price} $</p>`;
-                    if (coffee.image) {
-                        coffeeItem += `<img src="${coffee.image}" alt="${coffee.name}">`;
-                    }
-                    coffeeItem += `</li>`;
+                        <h3><a href="/menu/${coffee.slug}/">${coffee.name}</a></h3>
+                        <p>${coffee.description}</p>
+                        <p>Price: $${coffee.price}</p>
+                        <p>Stock: ${coffee.stock}</p>
+                        <p>Available: ${coffee.is_available ? 'Yes' : 'No'}</p>
+                        <div class="images">`;
+                    coffee.images.forEach(function(image) {
+                        coffeeItem += `<img src="${image.image}" alt="${coffee.name}">`;
+                    });
+                    coffeeItem += `</div></li>`;
                     $('#coffee-list').append(coffeeItem);
                 });
 
@@ -30,6 +33,3 @@ $(document).ready(function(){
         });
     });
 });
-
-
-            

@@ -5,17 +5,52 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ coffee.name }} Details</title>
-    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <link rel="stylesheet" href="{% static 'details.css' %}">
 </head>
 <body>
     <div class="container">
         <h1>{{ coffee.name }}</h1>
         <p><strong>Description:</strong> {{ coffee.description }}</p>
-        <p><strong>Price:</strong> {{ coffee.price }} $</p>
-        {% if coffee.image %}
-            <img src="{{ coffee.image.url }}" alt="{{ coffee.name }}">
-        {% endif %}
+        <p><strong>Price:</strong> ${{ coffee.price }}</p>
+        <p><strong>Stock:</strong> {{ coffee.stock }}</p>
+        <p><strong>Available:</strong> {{ coffee.is_available|yesno:"Yes,No" }}</p>
+        <div class="images">
+            {% for image in coffee.images.all %}
+                <img src="{{ image.image.url }}" alt="{{ coffee.name }}" class="image-thumbnail">
+            {% endfor %}
+        </div>
         <a href="{% url 'menu' %}">Back to Coffee List</a>
     </div>
+
+    <!-- Lightbox -->
+    <div id="lightbox" class="lightbox">
+        <span class="lightbox-close">&times;</span>
+        <div class="lightbox-content">
+            <img src="" alt="Lightbox Image" id="lightbox-image">
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            // Open the lightbox
+            $('.image-thumbnail').click(function(){
+                $('#lightbox-image').attr('src', $(this).attr('src'));
+                $('#lightbox').css('display', 'block');
+            });
+
+            // Close the lightbox
+            $('.lightbox-close').click(function(){
+                $('#lightbox').css('display', 'none');
+            });
+
+            // Close the lightbox when clicking outside the image
+            $('#lightbox').click(function(event){
+                if(event.target == this) {
+                    $(this).css('display', 'none');
+                }
+            });
+        });
+    </script>
 </body>
 </html>

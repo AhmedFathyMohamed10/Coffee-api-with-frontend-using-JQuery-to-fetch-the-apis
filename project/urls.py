@@ -7,8 +7,11 @@ from coffee.views import index, coffee_detail
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include('coffee.urls')),
+
+    # Django Views
     path('menu/', index, name='menu'),
-    path('menu/<int:pk>/', coffee_detail, name='coffee-detail'),
+    path('menu/<slug:slug>/', coffee_detail, name='coffee-detail'),
+
 ]
 
 if settings.DEBUG:
